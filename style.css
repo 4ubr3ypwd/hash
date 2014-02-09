@@ -1,0 +1,114 @@
+@import url(http://reset5.googlecode.com/hg/reset.min.css);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	padding-bottom: 39px;
+	padding-top: 35px;
+	color: #414141;
+	height: 100%;
+	background: #eee;
+}
+
+#hash-title, .site-title{
+	display:block;
+	background: #3896C2;
+	padding: 10px;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	height: 15px;
+	overflow: hidden;
+	width: 100%;
+	border-bottom: 1px solid #297CC9;
+	color: white;
+}
+
+#messages-table{
+	width:100%;
+}
+
+#messages-table .row{
+	background: #fff;
+	border-bottom: 1px solid #CFCFCF;
+}
+
+#messages-table .row .column{
+	padding: 3px 5px;
+}
+
+#messages-table .message-nick.nicksame{
+	background: rgb(66, 156, 66);
+	border-bottom-color: rgb(96, 179, 96);
+}
+
+#messages-table .message-nick{
+	width: 130px;
+	background: rgb(114, 114, 114);
+	color: white;
+	text-align: right;
+	border-bottom: 1px solid rgb(144, 155, 163);
+	overflow: hidden;
+}
+
+#messages-table .message-time{
+	width: 170px;
+	text-align: right;
+	color: #3896C2;
+	font-size: 80%;
+}
+
+#message-area {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 5px 0;
+	background: #eee;
+	border-top: 1px solid #dadada;
+	text-align: center;
+}
+
+#message{
+	width: 90%;
+	text-align: left;
+}
+
+#get-hash{
+	background: rgb(66, 156, 66);
+	width: 100%;
+	color:white;
+}
+
+#get-hash label{
+	display: block;
+	padding: 20px 40px;
+	margin: 10px 0;
+}
+
+#get-has-form{
+	width: 100%;
+}
+
+#get-has-form tr{
+	border-bottom: 1px solid green;
+}
+
+#get-has-form tr td{
+	padding: 10px;
+}
+
+#get-has-form tr td.label{
+	width: 20%;
+	background: green;
+	border-right: 1px solid #295E2B;
+	border-bottom: 1px solid #207023;
+}
+
+#get-has-form tr td input[type="text"]{
+	border: 1px solid green;
+	padding: 5px;
+	border-radius: 3px;
+	width: 60%;
+}
