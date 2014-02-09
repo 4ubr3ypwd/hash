@@ -1,4 +1,4 @@
-<h1 class="site-title"><?php echo $_SERVER['HTTP_HOST']; ?>@#hash</h1>
+<h1 class="site-title">Hash</h1>
 
 <form action="" method="get" id="get-hash">
 
@@ -8,10 +8,16 @@
 			<td><input type="text" name="nick" value="<?php the_nick('echo'); ?>"></td>
 		</tr>
 		<tr>
-			<td class="label">Hash</td>
+			<td class="label">Room</td>
 			<td>
-				<input type="text" name="hash" value="<?php h_hash('echo'); ?>">
-				<input type="submit" value="Join Hash">
+				<input type="text" name="hash" value="<?php the_hash('echo'); ?>">
+				<input type="submit" value="Join Room">
+			</td>
+		</tr>
+		<tr>
+			<td class="label"></td>
+			<td>
+				<input type="submit" value="Join Room">
 			</td>
 		</tr>
 	</table>

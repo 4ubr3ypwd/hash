@@ -23,7 +23,7 @@ function ajax_handler($action){
 	if($action=='post_message'){
 		$record = array(
 			'nick' => $_GET['nick'],
-			'message' => h_sanitize_message(
+			'message' => sanatize_message_before(
 				$_GET['message']
 			),
 			'hash' => $_GET['hash'],
@@ -52,17 +52,19 @@ function the_nick($how=NULL){
 	}
 }
 
-function h_hash($how){
+function the_hash($how=NULL){
 	if( isset($_GET['hash']) ){
 		if($how=='echo'){
 			echo $_GET['hash'];
 		}else{
 			return $_GET['hash'];
 		}
+	}else{
+		return false;
 	}
 }
 
-function h_supplied_nick(){
+function have_nick(){
 	if( isset($_GET['nick']) ){
 		return true;
 	}else{
@@ -77,9 +79,18 @@ function h_supplied_hash(){
 	}
 }
 
-function h_sanitize_message($message){
+function sanatize_message_before($message){
 	$message = strip_tags($message);
 	return $message;
+}
+
+function the_message($text){
+	$text = auto_link_text($text);
+	return $text;
+}
+
+function auto_link_text($text){
+	return preg_replace('/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', '<a href="\1">\1</a>', $text);
 }
 
 ?>

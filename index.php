@@ -5,7 +5,7 @@
 	<script>
 		var php_ = {
 			nick: '<?php the_nick('echo'); ?>',
-			_hash: '<?php h_hash('echo'); ?>'
+			_hash: '<?php the_hash('echo'); ?>'
 		};
 	</script>
 	<script src="hash.js"></script>
@@ -14,7 +14,7 @@
 <body>
 	<?php
 		if(
-			h_supplied_nick()
+			have_nick()
 			&& h_supplied_hash()
 		){
 			include "in-hash.php";

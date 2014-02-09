@@ -3,12 +3,17 @@
 
 body{
 	font-family: 'Open Sans', sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 	padding-bottom: 39px;
 	padding-top: 35px;
-	color: #414141;
+	color: #666666;
 	height: 100%;
-	background: #eee;
+	background: #F1F1F1;
+	line-height: 19px;
+}
+
+a{
+	color: #3896C2;
 }
 
 #hash-title, .site-title{
@@ -30,12 +35,12 @@ body{
 }
 
 #messages-table .row{
-	background: #fff;
+	background: #FDFDFD;
 	border-bottom: 1px solid #CFCFCF;
 }
 
 #messages-table .row .column{
-	padding: 3px 5px;
+	padding: 10px;
 }
 
 #messages-table .message-nick.nicksame{
@@ -48,15 +53,17 @@ body{
 	background: rgb(114, 114, 114);
 	color: white;
 	text-align: right;
-	border-bottom: 1px solid rgb(144, 155, 163);
+	border-bottom: 1px solid rgb(83, 83, 83);
 	overflow: hidden;
 }
 
 #messages-table .message-time{
 	width: 170px;
-	text-align: right;
-	color: #3896C2;
-	font-size: 80%;
+	text-align: left;
+	color: #8D8D8D;
+	font-size: 85%;
+	border-left: 1px solid #DFDFDF;
+	background: #eee;
 }
 
 #message-area {
@@ -73,6 +80,7 @@ body{
 #message{
 	width: 90%;
 	text-align: left;
+	padding: 3px;
 }
 
 #get-hash{
