@@ -1,16 +1,4 @@
-<?php 
-
-global $record_id;
-
-$messages = DB::query(
-	"SELECT * FROM messages WHERE hash=%s", the_hash() 
-);
-
-if( !is_array($messages) ){
-	$message = array();
-}
-
-?>
+<?php $messages = the_messages( the_hash() ); ?>
 
 <table id="messages-table">
 	<tbody>

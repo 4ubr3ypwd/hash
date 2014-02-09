@@ -15,7 +15,7 @@
 	<?php
 		if(
 			have_nick()
-			&& h_supplied_hash()
+			&& have_hash()
 		){
 			include "in-hash.php";
 		}else{
