@@ -14,6 +14,16 @@ if( isset($_GET['action']) ){
 	init();
 }
 
+function the_interval($how){
+	global $config;
+
+	if($how=='echo'){
+		echo $config->interval;
+	}else{
+		return $config->interval;
+	}
+}
+
 function init(){
 	if( isset($_GET['nick']) ){
 		$_SESSION['nick']=the_nick();

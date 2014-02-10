@@ -7,7 +7,8 @@
 	<script>
 		var php_ = {
 			nick: '<?php the_nick('echo'); ?>',
-			_hash: '<?php the_hash('echo'); ?>'
+			_hash: '<?php the_hash('echo'); ?>',
+			interval: <?php the_interval('echo'); ?>
 		};
 	</script>
 	<script src="hash.js"></script>

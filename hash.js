@@ -72,7 +72,7 @@ function h_make_table_interval(){
 				$('#messages').html(data);	
 			}
 		});
-	}, 300);
+	}, php_.interval);
 }
 
 function goto_screen_bottom(){
