@@ -18,9 +18,10 @@ on PHP, MySQL, HTML, and Javascript. Oh and **dead** simple!
 Clone this repo down and rename `config.php.sample` to `config.php` and populate with your values. Import
 `db.sql` to your database and start hashing it out!
 
-# Development
+# VVV Development
 
-There is a VVV setup for developing Hash over at 
+There is a [VarryingVagrantVagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) 
+setup over at [https://github.com/aubreypwd/hash-vvv](https://github.com/aubreypwd/hash-vvv)
 
 # Changelog
 
