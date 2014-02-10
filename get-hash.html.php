@@ -11,13 +11,12 @@
 			<td class="label">Room</td>
 			<td>
 				<input type="text" name="hash" value="<?php the_hash('echo'); ?>">
-				<input type="submit" value="Join Room">
 			</td>
 		</tr>
 		<tr>
 			<td class="label"></td>
 			<td>
-				<input type="submit" value="Join Room">
+				<input type="submit" value="Join Hash">
 			</td>
 		</tr>
 	</table>
