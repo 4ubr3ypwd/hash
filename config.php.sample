@@ -4,7 +4,7 @@
  * Configuration for Hash.
  * Rename this file to config.php with your unique values.
  */
-$config=array(
+$config = array(
 	/**
 	* Database configuration for your install. 
 	*/
@@ -12,6 +12,7 @@ $config=array(
 	'db_user' => 'hash',
 	'db_name' => 'hash',
 	'db_password' => 'hash',
+	'db_host' => 'localhost',
 
 	/**
 	 * Interval of JS refresh of hash.

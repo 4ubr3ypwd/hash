@@ -23,6 +23,7 @@ function db_init(){
 	DB::$user = $config->db_user;
 	DB::$password = $config->db_password;
 	DB::$dbName = $config->db_name;
+	DB::$host = $config->db_host;
 }
 
 /**
