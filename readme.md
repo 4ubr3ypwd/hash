@@ -16,7 +16,7 @@ on PHP, MySQL, HTML, and Javascript. Oh and **dead** simple!
 # Installation
 
 - Clone this repo down
-- Checkout a version using `git checkout -b X.X` or use bleeding edge `master`
+- Checkout or [download](https://github.com/aubreypwd/hash/releases) a version of Hash
 - Copy `config.php.sample` to `config.php` and populate with your values
 - Import `db.sql` to your database and start hashing it out!
 
@@ -24,6 +24,16 @@ on PHP, MySQL, HTML, and Javascript. Oh and **dead** simple!
 
 There is a [VarryingVagrantVagrants](https://github.com/Varying-Vagrant-Vagrants/VVV) 
 setup over at [https://github.com/aubreypwd/hash-vvv](https://github.com/aubreypwd/hash-vvv)
+
+# Documentation
+
+## How do I change my nick when I'm in a hash?
+
+In the title bar, click your nick and it will take you back so you can change it and re-join the hash.
+
+## How do I change the hash I am in?
+
+Also, in the title bar, click the name of the Hash and it will take you back to join another hash.
 
 # Changelog
 

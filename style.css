@@ -32,6 +32,7 @@ a{
 
 #hash-title a, .site-title a{
 	color: white;
+	text-decoration: none;
 }
 
 #messages-table{
