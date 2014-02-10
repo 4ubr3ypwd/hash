@@ -4,7 +4,7 @@ Hash is a simple chat system designed to keep chats persistent, simple, hacker-f
 
 A few things to consider when using Hash:
 
-* A hash, is a chat room
+* A hash is a chat room
 * Anyone can join a hash
 * Hash names and Nicks are case sensitive, so a hash called "myhash4356c9" is different from "myHash4356c9"
 * Nicks belong to no one
