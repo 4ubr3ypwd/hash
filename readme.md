@@ -15,8 +15,10 @@ on PHP, MySQL, HTML, and Javascript. Oh and **dead** simple!
 
 # Installation
 
-Clone this repo down and rename `config.php.sample` to `config.php` and populate with your values. Import
-`db.sql` to your database and start hashing it out!
+- Clone this repo down
+- Checkout a version using `git checkout -b X.X` or use bleeding edge `master`
+- Copy `config.php.sample` to `config.php` and populate with your values
+- Import `db.sql` to your database and start hashing it out!
 
 # VVV Development
 
