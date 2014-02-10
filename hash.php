@@ -1,8 +1,7 @@
 <?php
 
 include "config.php";
-	$config 
-		= objectify_array($config);
+	$config = objectify_array($config);
 
 include "meekrodb.2.2.class.php";
 	db_init();
@@ -54,10 +53,10 @@ function ajax_handler($action){
 
 		$record_id = DB::insertId();
 
-		include "hash-table.php";
+		include "hash-table.html.php";
 
 	}elseif($action=='update_table'){
-		include "hash-table.php";
+		include "hash-table.html.php";
 	}
 }
 
@@ -128,3 +127,5 @@ function the_messages($hash){
 function objectify_array($array){
 	return json_decode(json_encode($array));
 }
+
+?>

@@ -3,7 +3,7 @@
 </h1>
 
 <div id="messages">
-	<?php include "hash-table.php"; ?>
+	<?php include "hash-table.html.php"; ?>
 </div>
 
 <div id="message-area">

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Database configuration for your install. 
+ * Rename this file to config.php with your unique values.
+ */
 $config=array(
 	'db_table' => 'hash',
 	'db_user' => 'hash',
