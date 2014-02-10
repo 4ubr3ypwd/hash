@@ -1,6 +1,12 @@
+/**
+ * Some Google Fonts.
+ */
 @import url(http://reset5.googlecode.com/hg/reset.min.css);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
+/**
+ * Our styles.
+ */
 body{
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;

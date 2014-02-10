@@ -1,36 +1,22 @@
 <?php
 
+/**
+ * Make sure we have the config and it's
+ * an object (for better inserting into strings).
+ */
 include "config.php";
 	$config = objectify_array($config);
 
+/**
+ * Let's include our DB library and connect
+ * it to our config.php values.
+ */
 include "meekrodb.2.2.class.php";
 	db_init();
 
-session_start();
-
-if( isset($_GET['action']) ){
-	ajax_handler($_GET['action']);
-}else{
-	init();
-}
-
-function the_interval($how){
-	global $config;
-
-	if($how=='echo'){
-		echo $config->interval;
-	}else{
-		return $config->interval;
-	}
-}
-
-function init(){
-	if( isset($_GET['nick']) ){
-		$_SESSION['nick']=the_nick();
-		header( "Location: ?hash=".the_hash() );
-	}
-}
-
+/**
+ * Connect the DB with our config values.
+ */
 function db_init(){
 	global $config;
 
@@ -39,20 +25,53 @@ function db_init(){
 	DB::$dbName = $config->db_name;
 }
 
-function the_nick_classes($nick){
-	if(the_nick() == $nick){
-		echo " nicksame";
+/**
+ * We store the nick in the browser
+ * session.
+ */
+session_start();
+
+/**
+ * Detect if we're doing an ajax
+ * call by detecting action.
+ */
+if( isset($_GET['action']) ){
+	ajax_handler($_GET['action']);
+
+/**
+ * If we're not doing an ajax
+ * call, watch for the nick.
+ */
+}else{
+	init();
+}
+
+/**
+ * Watch for the nick, and if it's in $_GET
+ * store it in $_SESSION so the url is shareable.
+ */
+function init(){
+	if( isset($_GET['nick']) ){
+		$_SESSION['nick']=the_nick();
+		header( "Location: ?hash=".the_hash() );
 	}
 }
 
+/**
+ * Handle ajax calls.
+ */
 function ajax_handler($action){
 
 	global $config;
 
+	/**
+	 * If we were passed a message, save it to the DB
+	 * and send back the updated conversation.
+	 */
 	if($action=='post_message'){
 		$record = array(
 			'nick' => $_GET['nick'],
-			'message' => sanatize_message_before(
+			'message' => filter_message_before(
 				$_GET['message']
 			),
 			'hash' => $_GET['hash'],
@@ -65,18 +84,61 @@ function ajax_handler($action){
 
 		include "hash-table.html.php";
 
+	/**
+	 * Just get the latest messages
+	 * in the conversation. Usually updated per
+	 * an interval from JS.
+	 */
 	}elseif($action=='update_table'){
 		include "hash-table.html.php";
 	}
 }
 
+/**
+ * Pass back the interval with ease.
+ */
+function the_interval($how){
+	global $config;
+
+	if($how=='echo'){
+		echo $config->interval;
+	}else{
+		return $config->interval;
+	}
+}
+
+/**
+ * Add some classes to an element if the nick
+ * is the same as the message being displayed.
+ *
+ * Allows us to use CSS to make that person's
+ * nick highlighted.
+ */
+function the_nick_classes($nick){
+	if(the_nick() == $nick){
+		echo " nicksame";
+	}
+}
+
+/**
+ * Pass back the nick with ease.
+ */
 function the_nick($how=NULL){
+
+	/**
+	 * If it's stored in $_GET 
+	 * (which should be shortly).
+	 */
 	if( isset( $_GET['nick'] ) ){
 		if($how=='echo'){
 			echo $_GET['nick'];
 		}else{
 			return $_GET['nick'];
 		}
+
+	/**
+	 * If it's stored in $_SESSION.
+	 */
 	}else{
 		if( isset( $_SESSION['nick'] ) ){
 			if($how=='echo'){
@@ -90,6 +152,10 @@ function the_nick($how=NULL){
 	}
 }
 
+/**
+ * Pass the hash back with ease.
+ * It persists in the URL via $_GET
+ */
 function the_hash($how=NULL){
 	if( isset($_GET['hash']) ){
 		if($how=='echo'){
@@ -102,16 +168,37 @@ function the_hash($how=NULL){
 	}
 }
 
-function sanatize_message_before($message){
+/**
+ * Clean messages before they are stored in the DB.
+ */
+function filter_message_before($message){
 	$message = strip_tags($message);
 	return $message;
 }
 
-function the_message($text){
+/**
+ * Clean message before it is displayed.
+ * @return [type] [description]
+ */
+function filter_message_after($text){
+	/**
+	 * Auto-link messages.
+	 */	
 	$text = auto_link_text($text);
 	return $text;
 }
 
+/**
+ * Pass the message back.
+ */
+function the_message($text){
+	$text = filter_message_after($text);
+	return $text;
+}
+
+/**
+ * Auto link hyperlinks in text.
+ */
 function auto_link_text($text){
 	return preg_replace(
 		'/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
@@ -120,6 +207,9 @@ function auto_link_text($text){
 	);
 }
 
+/**
+ * Get all the messages for a hash.
+ */
 function the_messages($hash){
 	global $config;
 
@@ -134,6 +224,9 @@ function the_messages($hash){
 	}
 }
 
+/**
+ * Make our arrays $object->friendly
+ */
 function objectify_array($array){
 	return json_decode(json_encode($array));
 }

@@ -5,10 +5,13 @@
 	<title>Hash</title>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
-		var php_ = {
-			nick: '<?php the_nick('echo'); ?>',
-			_hash: '<?php the_hash('echo'); ?>',
-			interval: <?php the_interval('echo'); ?>
+		/**
+		 * Variables that will be accessible to JS
+		 */
+		var php2js = {
+			the_nick: '<?php the_nick('echo'); ?>',
+			the_hash: '<?php the_hash('echo'); ?>',
+			the_interval: <?php the_interval('echo'); ?>
 		};
 	</script>
 	<script src="hash.js"></script>
@@ -16,11 +19,19 @@
 </head>
 <body>
 	<?php
+		/**
+		 * If we have both the nick and hash, 
+		 * load the hash page.
+		 */
 		if(
 			the_nick()
 			&& the_hash()
 		){
 			include "in-hash.html.php";
+		
+		/**
+		 * If we don't have both, load something to get them.
+		 */
 		}else{
 			include "get-hash.html.php";
 		}

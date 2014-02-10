@@ -1,6 +1,11 @@
-<?php $messages = the_messages( the_hash() ); ?>
+<?php 
 
-<table id="messages-table">
+/**
+ * Get the messages so we can output them.
+ */
+$messages = the_messages( the_hash() ); 
+
+?><table id="messages-table">
 	<tbody>
 		<?php foreach($messages as $message){ ?>
 			<tr class="row" id="<?php echo $message['id']; ?>">
