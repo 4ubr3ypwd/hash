@@ -8,6 +8,11 @@ include "config.php";
 	$config = objectify_array($config);
 
 /**
+ * Set the timezone of the app.
+ */
+date_default_timezone_set($config->timezone);
+
+/**
  * Let's include our DB library and connect
  * it to our config.php values.
  */

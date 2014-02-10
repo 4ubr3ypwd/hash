@@ -17,7 +17,12 @@ $config = array(
 	/**
 	 * Interval of JS refresh of hash.
 	 */
-	'interval' => '300'
+	'interval' => '300',
+
+	/**
+	 * Timezone of app from http://www.php.net/manual/en/timezones.php
+	 */
+	'timezone' => 'UTC'
 );
 
 ?>
