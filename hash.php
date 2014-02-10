@@ -30,6 +30,8 @@ function the_nick_classes($nick){
 
 function ajax_handler($action){
 
+	global $config;
+
 	if($action=='post_message'){
 		$record = array(
 			'nick' => $_GET['nick'],
@@ -40,9 +42,10 @@ function ajax_handler($action){
 			'time' => time(),
 		);
 
-		DB::insert('messages', $record);
+		DB::insert($config->db_table, $record);
+
 		$record_id = DB::insertId();
-		global $record_id;
+
 		include "hash-table.php";
 
 	}elseif($action=='update_table'){

@@ -7,7 +7,7 @@
 #
 # Host: local.wordpress.dev (MySQL 5.5.35-0ubuntu0.12.04.2)
 # Database: hash_dev
-# Generation Time: 2014-02-10 03:20:20 +0000
+# Generation Time: 2014-02-10 03:38:19 +0000
 # ************************************************************
 
 
@@ -20,10 +20,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table messages
+# Dump of table hash
 # ------------------------------------------------------------
 
-CREATE TABLE `messages` (
+DROP TABLE IF EXISTS `hash`;
+
+CREATE TABLE `hash` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nick` text,
   `message` text,
