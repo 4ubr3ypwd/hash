@@ -16,7 +16,7 @@ $messages = the_messages( the_hash() );
 					<?php echo the_message($message['message']); ?>
 				</td>
 				<td class="column message-time">
-					<a href="#<?php echo $message['id']; ?>">
+					<a href="#<?php echo $message['id']; ?>" title="<?php echo $config->timezone; ?>">
 						<?php echo date("F j, Y, g:i a", $message['time']); ?>
 					</a>
 				</td>
