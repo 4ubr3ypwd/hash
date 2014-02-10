@@ -9,17 +9,25 @@ include "meekrodb.2.2.class.php";
 
 session_start();
 
+if( isset($_GET['action']) ){
+	ajax_handler($_GET['action']);
+}else{
+	init();
+}
+
+function init(){
+	if( isset($_GET['nick']) ){
+		$_SESSION['nick']=the_nick();
+		header( "Location: ?hash=".the_hash() );
+	}
+}
+
 function db_init(){
 	global $config;
 
 	DB::$user = $config->db_user;
 	DB::$password = $config->db_password;
 	DB::$dbName = $config->db_name;
-
-}
-
-if( isset($_GET['action']) ){
-	ajax_handler($_GET['action']);
 }
 
 function the_nick_classes($nick){
@@ -61,7 +69,15 @@ function the_nick($how=NULL){
 			return $_GET['nick'];
 		}
 	}else{
-		return false;
+		if( isset( $_SESSION['nick'] ) ){
+			if($how=='echo'){
+				echo $_SESSION['nick'];
+			}else{
+				return $_SESSION['nick'];
+			}
+		}else{
+			return false;
+		}
 	}
 }
 
@@ -74,21 +90,6 @@ function the_hash($how=NULL){
 		}
 	}else{
 		return false;
-	}
-}
-
-function have_nick(){
-	if( isset($_GET['nick']) ){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function have_hash(){
-	if( isset($_GET['hash']) ){
-		if($_GET['hash']) return true;
-		else return false;
 	}
 }
 
@@ -105,7 +106,7 @@ function the_message($text){
 function auto_link_text($text){
 	return preg_replace(
 		'/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
-		'<a href="\1">\1</a>', 
+		'<a href="\1">\1</a>',
 		$text
 	);
 }
