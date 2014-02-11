@@ -178,7 +178,6 @@ function the_hash($how=NULL){
  * Clean messages before they are stored in the DB.
  */
 function filter_message_before($message){
-	$message = strip_tags($message);
 	return $message;
 }
 
@@ -191,6 +190,12 @@ function filter_message_after($text){
 	 * Auto-link messages.
 	 */	
 	$text = auto_link_text($text);
+
+	/**
+	 * Make sure we don't output HTML.
+	 */
+	$text = htmlentities($text);
+
 	return $text;
 }
 

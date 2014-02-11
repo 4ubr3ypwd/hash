@@ -9,3 +9,7 @@
 <div id="message-area">
 	<input type="text" id="message">
 </div>
+
+<audio id="notify">
+	<source src="notify.mp3" type="audio/mpeg">
+</audio>
