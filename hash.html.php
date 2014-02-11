@@ -3,6 +3,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Hash</title>
+	<link rel="icon" type="image/png" href="ico.png" />
+	<link rel="apple-touch-icon" type="image/png" href="ico.png">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
 		/**
