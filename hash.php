@@ -193,14 +193,14 @@ function filter_message_after($text){
 	$text = stripslashes($text);
 
 	/**
-	 * Auto-link messages.
-	 */	
-	$text = auto_link_text($text);
-
-	/**
 	 * Make sure we don't output HTML.
 	 */
 	$text = htmlentities($text);
+
+	/**
+	 * Auto-link messages.
+	 */	
+	$text = auto_link_text($text);
 
 	return $text;
 }
