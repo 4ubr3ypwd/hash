@@ -33,15 +33,6 @@ $(document).ready(function(){
 				);
 			}
 		});
-
-		/**
-		 * Let everyone know you joined the hash.
-		 */
-		send_message(
-			"~ Joined ~",
-			php2js.the_nick,
-			php2js.the_hash
-		);
 	}
 });
 
@@ -158,20 +149,10 @@ function beep(){
  */
 $(window).focus(function(){
 	window_active = true;
-	send_message(
-		"~ Online ~",
-		php2js.the_nick,
-		php2js.the_hash
-	);
 });
 
 $(window).blur(function(){
 	window_active = false;
-	send_message(
-		"~ Away ~",
-		php2js.the_nick,
-		php2js.the_hash
-	);
 });
 
 /**

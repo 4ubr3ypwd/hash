@@ -178,6 +178,8 @@ function the_hash($how=NULL){
  * Clean messages before they are stored in the DB.
  */
 function filter_message_before($message){
+	$message = stripslashes($message);
+
 	return $message;
 }
 
