@@ -22,6 +22,10 @@ a{
 	color: #3896C2;
 }
 
+#js_htmlifier{
+	display:none;
+}
+
 #hash-title, .site-title{
 	display:block;
 	background: #3896C2;

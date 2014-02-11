@@ -77,7 +77,7 @@ function ajax_handler($action){
 	if($action=='post_message'){
 		$record = array(
 			'nick' => $_GET['nick'],
-			'message' => filter_message_before(
+			'message' => filter_message_before_db(
 				$_GET['message']
 			),
 			'hash' => $_GET['hash'],
@@ -177,7 +177,7 @@ function the_hash($how=NULL){
 /**
  * Clean messages before they are stored in the DB.
  */
-function filter_message_before($text){
+function filter_message_before_db($text){
 	return $text;
 }
 
@@ -185,7 +185,9 @@ function filter_message_before($text){
  * Clean message before it is displayed.
  * @return [type] [description]
  */
-function filter_message_after($text){
+function filter_message_after_db($text){
+
+	$text = clean_ascii($text);
 
 	/**
 	 * Don't show I\'m
@@ -209,7 +211,7 @@ function filter_message_after($text){
  * Pass the message back.
  */
 function the_message($text){
-	$text = filter_message_after($text);
+	$text = filter_message_after_db($text);
 	return $text;
 }
 
@@ -246,6 +248,58 @@ function the_messages($hash){
  */
 function objectify_array($array){
 	return json_decode(json_encode($array));
+}
+
+/**
+ * Remove any non-ASCII characters and convert known non-ASCII characters 
+ * to their ASCII equivalents, if possible.
+ *
+ * @param string $string 
+ * @return string $string
+ * @author Jay Williams <myd3.com>
+ * @license MIT License
+ * @link http://gist.github.com/119517
+ */
+function clean_ascii($string) { 
+  // Replace Single Curly Quotes
+  $search[]  = chr(226).chr(128).chr(152);
+  $replace[] = "'";
+  $search[]  = chr(226).chr(128).chr(153);
+  $replace[] = "'";
+ 
+  // Replace Smart Double Curly Quotes
+  $search[]  = chr(226).chr(128).chr(156);
+  $replace[] = '"';
+  $search[]  = chr(226).chr(128).chr(157);
+  $replace[] = '"';
+ 
+  // Replace En Dash
+  $search[]  = chr(226).chr(128).chr(147);
+  $replace[] = '--';
+ 
+  // Replace Em Dash
+  $search[]  = chr(226).chr(128).chr(148);
+  $replace[] = '---';
+ 
+  // Replace Bullet
+  $search[]  = chr(226).chr(128).chr(162);
+  $replace[] = '*';
+ 
+  // Replace Middle Dot
+  $search[]  = chr(194).chr(183);
+  $replace[] = '*';
+ 
+  // Replace Ellipsis with three consecutive dots
+  $search[]  = chr(226).chr(128).chr(166);
+  $replace[] = '...';
+ 
+  // Apply Replacements
+  $string = str_replace($search, $replace, $string);
+ 
+  // Remove any non-ASCII Characters
+  $string = preg_replace("/[^\x01-\x7F]/","", $string);
+ 
+  return $string; 
 }
 
 ?>

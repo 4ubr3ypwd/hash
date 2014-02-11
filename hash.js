@@ -108,6 +108,16 @@ function setup_page_update_interval(){
 			){
 
 				/**
+				 * Make sure our " and &quote 
+				 * match.
+				 */
+				data = js_htmlify(data);
+
+				console.log(data);
+				console.log('---');
+				console.log( $('#messages').html() );
+
+				/**
 				 * Only update the HTML of it is different
 				 * than what it was before.
 				 */
@@ -138,6 +148,24 @@ function setup_page_update_interval(){
 			}
 		});
 	}, php2js.the_interval);
+}
+
+function js_htmlify(data){
+	/**
+	 * Since jQuery.html() does not convert
+	 * " to &quote, data (which has &quote;),
+	 * and the current HTML will be different.
+	 *
+	 * One having " and one having &quote;
+	 * when expressing the message.
+	 *
+	 * This fixes that issue by passing the data
+	 * to the DOM, which converts &quote to ",
+	 * and then passes it back into data.
+	 */
+	$('#js_htmlifier').html(data);
+	data=$('#js_htmlifier').html();
+	return data;
 }
 
 function beep(){

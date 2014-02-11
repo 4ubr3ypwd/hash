@@ -13,3 +13,5 @@
 <audio id="notify">
 	<source src="notify.mp3" type="audio/mpeg">
 </audio>
+
+<div id="js_htmlifier"></div>

@@ -5,7 +5,8 @@
  */
 $messages = the_messages( the_hash() ); 
 
-?><table id="messages-table">
+?>
+<table id="messages-table">
 	<tbody>
 		<?php foreach($messages as $message){ ?>
 			<tr class="row" id="<?php echo $message['id']; ?>">
