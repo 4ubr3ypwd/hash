@@ -177,10 +177,8 @@ function the_hash($how=NULL){
 /**
  * Clean messages before they are stored in the DB.
  */
-function filter_message_before($message){
-	$message = stripslashes($message);
-
-	return $message;
+function filter_message_before($text){
+	return $text;
 }
 
 /**
@@ -188,6 +186,12 @@ function filter_message_before($message){
  * @return [type] [description]
  */
 function filter_message_after($text){
+
+	/**
+	 * Don't show I\'m
+	 */
+	$text = stripslashes($text);
+
 	/**
 	 * Auto-link messages.
 	 */	
