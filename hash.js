@@ -113,10 +113,6 @@ function setup_page_update_interval(){
 				 */
 				data = js_htmlify(data);
 
-				console.log(data);
-				console.log('---');
-				console.log( $('#messages').html() );
-
 				/**
 				 * Only update the HTML of it is different
 				 * than what it was before.
