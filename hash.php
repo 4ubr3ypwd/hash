@@ -218,7 +218,7 @@ function the_message($text){
  */
 function auto_link_text($text){
 	return preg_replace(
-		'/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
+		'/((.*):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
 		'<a href="\1">\1</a>',
 		$text
 	);
