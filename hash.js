@@ -41,6 +41,18 @@ $(document).ready(function(){
  * and update the page when done.
  */
 function send_message(message, nick, hash){
+
+	/**
+	 * Make sure we don't send an 
+	 * empty message.
+	 */
+	if(message==''){
+		return;
+	}
+
+	/**
+	 * Send the message.
+	 */
 	$.ajax({
 		url: 'hash.php',
 		method: 'get',

@@ -75,20 +75,28 @@ function ajax_handler($action){
 	 * and send back the updated conversation.
 	 */
 	if($action=='post_message'){
-		$record = array(
-			'nick' => $_GET['nick'],
-			'message' => filter_message_before_db(
-				$_GET['message']
-			),
-			'hash' => $_GET['hash'],
-			'time' => time(),
-		);
+		
+		/**
+		 * Make sure the message is not empty.
+		 */
+		if($_GET['message'] != ''){
 
-		DB::insert($config->db_table, $record);
+			$record = array(
+				'nick' => $_GET['nick'],
+				'message' => filter_message_before_db(
+					$_GET['message']
+				),
+				'hash' => $_GET['hash'],
+				'time' => time(),
+			);
 
-		$record_id = DB::insertId();
+			DB::insert($config->db_table, $record);
 
-		include "hash-table.html.php";
+			$record_id = DB::insertId();
+
+			include "hash-table.html.php";
+
+		}
 
 	/**
 	 * Just get the latest messages
@@ -219,11 +227,14 @@ function the_message($text){
  * Auto link hyperlinks in text.
  */
 function auto_link_text($text){
-	return preg_replace(
+
+	$text= preg_replace(
 		'/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
 		'<a href="\1" target="blank_">\1</a>',
 		$text
 	);
+
+	return $text;
 }
 
 /**

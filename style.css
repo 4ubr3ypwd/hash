@@ -63,6 +63,10 @@ a{
 	border-bottom-color: rgb(96, 179, 96);
 }
 
+#messages-table .message-message{
+	word-break: break-all;
+}
+
 #messages-table .message-nick{
 	width: 130px;
 	background: rgb(114, 114, 114);
