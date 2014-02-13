@@ -313,4 +313,16 @@ function clean_ascii($string) {
   return $string; 
 }
 
+function message_classes($message_id){
+	if( isset($_GET['highlight_id']) ){
+
+		$highlight_id = str_replace("#",'',$_GET['highlight_id']);
+
+		if($highlight_id == $message_id){
+			echo "highlight";
+		}
+
+	}
+}
+
 ?>

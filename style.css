@@ -40,6 +40,10 @@ a{
 	color: white;
 }
 
+#hash-title.hash-title-hidden{
+	display:none;
+}
+
 #hash-title a, .site-title a{
 	color: white;
 	text-decoration: none;
@@ -65,6 +69,10 @@ a{
 
 #messages-table .message-message{
 	word-break: break-all;
+}
+
+#messages-table .highlight td + td {
+	background: rgba(255, 255, 0, 0.17);
 }
 
 #messages-table .message-nick{

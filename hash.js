@@ -1,9 +1,13 @@
 /**
  * Some global vars.
  */
-update_interval='';
-update_ajax='';
-window_active=true;
+var update_interval = '';
+var update_ajax = '';
+var window_active = true;
+var highlight_id =''
+var initial_scrolled_to_message = false;
+var scrolled_screen_bottom = false;
+var scroll_speed = 500;
 
 $(document).ready(function(){
 
@@ -15,11 +19,10 @@ $(document).ready(function(){
 			php2js.the_hash==''
 		|| php2js.the_nick==''
 	) return false;
-
-	setup_page_update_interval();
-	goto_screen_bottom();
-
+	
 	if( $('#message') ){
+
+		setup_page_update_interval();
 
 		/**
 		 * Log and wait for the <enter> key in the message box.
@@ -34,6 +37,7 @@ $(document).ready(function(){
 			}
 		});
 	}
+
 });
 
 /**
@@ -60,7 +64,8 @@ function send_message(message, nick, hash){
 			action: 'post_message',
 			message: message,
 			nick: nick,
-			hash: hash
+			hash: hash,
+			highlight_id: window.location.hash
 		},
 		success: function(
 			data, 
@@ -111,7 +116,8 @@ function setup_page_update_interval(){
 			data: {
 				action: 'update_table',
 				hash: php2js.the_hash,
-				nick: php2js.the_nick
+				nick: php2js.the_nick,
+				highlight_id: window.location.hash
 			},
 			success: function(
 				data, 
@@ -153,9 +159,32 @@ function setup_page_update_interval(){
 					 */
 					$('#messages').html(data);	
 				}
+
+				if(window.location.hash && !initial_scrolled_to_message){
+					goto_message(window.location.hash);
+					initial_scrolled_to_message = true;
+				}else{
+					if(!window.location.hash){
+						goto_screen_bottom();
+					}
+				}
+
 			}
 		});
 	}, php2js.the_interval);
+
+}
+
+function goto_message(message_hash){
+
+		console.log(message_hash);
+		
+		$(message_hash).addClass('highlight');
+
+		$("html, body").animate({ 
+			scrollTop: $(message_hash).offset().top
+				- 200,
+		}, scroll_speed);
 }
 
 function js_htmlify(data){
@@ -195,5 +224,11 @@ $(window).blur(function(){
  * Go to the bottom of the screen.
  */
 function goto_screen_bottom(){
-	$(window).scrollTop( $(document).height() );
+	if(!scrolled_screen_bottom){
+		$("html, body").animate({ 
+			scrollTop: $(document).height()
+		}, scroll_speed);	
+	}
+
+	scrolled_screen_bottom = true;
 }
