@@ -6,7 +6,7 @@ var update_ajax = '';
 var window_active = true;
 var highlight_id =''
 var initial_scrolled_to_message = false;
-var scroll_speed = 500;
+var scroll_speed = 1000;
 
 $(document).ready(function(){
 
@@ -35,6 +35,10 @@ $(document).ready(function(){
 				);
 			}
 		});
+
+		if(!window.location.hash){
+			animate_goto_bottom_screen();
+		}
 	}
 
 });
@@ -155,16 +159,19 @@ function setup_page_update_interval(){
 				if(window.location.hash && !initial_scrolled_to_message){
 					goto_message(window.location.hash);
 					initial_scrolled_to_message = true;
-				}else{
-					goto_screen_bottom_if_close();
 				}
-
 			}
 		});
 	}, php2js.the_interval);
 
 }
 
+/**
+ * If we are floating 50 px from the bottom
+ * of the screen go to the bottom of screen.
+ *
+ * (usually to show a new message)
+ */
 function goto_screen_bottom_if_close(){
 	if(
 		$(window).scrollTop() + $(window).height()
@@ -174,6 +181,10 @@ function goto_screen_bottom_if_close(){
 	}
 }
 
+/**
+ * Scroll to a specific message
+ * and highlight it.
+ */
 function goto_message(message_hash){
 	$(message_hash).addClass('highlight');
 
@@ -201,6 +212,9 @@ function js_htmlify(data){
 	return data;
 }
 
+/**
+ * Play the notification.
+ */
 function beep(){
 	$('#notify')[0].play();
 }
@@ -217,10 +231,21 @@ $(window).blur(function(){
 });
 
 /**
- * Go to the bottom of the screen.
+ * Go to the bottom of the screen
+ * w/out animation so that it can be
+ * released on scroll up.
  */
 function goto_screen_bottom(){
 	$(window).scrollTop( 
 		$(document).height() 
 	);
+}
+
+/**
+ * Goto bottom of screen with animation.
+ */
+function animate_goto_bottom_screen(){
+	$("html, body").animate({ 
+		scrollTop: $(document).height(),
+	}, scroll_speed);
 }
