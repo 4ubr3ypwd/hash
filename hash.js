@@ -176,15 +176,12 @@ function setup_page_update_interval(){
 }
 
 function goto_message(message_hash){
+	$(message_hash).addClass('highlight');
 
-		console.log(message_hash);
-		
-		$(message_hash).addClass('highlight');
-
-		$("html, body").animate({ 
-			scrollTop: $(message_hash).offset().top
-				- 200,
-		}, scroll_speed);
+	$("html, body").animate({ 
+		scrollTop: $(message_hash).offset().top
+			- 200,
+	}, scroll_speed);
 }
 
 function js_htmlify(data){
