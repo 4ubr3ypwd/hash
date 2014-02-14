@@ -6,7 +6,6 @@ var update_ajax = '';
 var window_active = true;
 var highlight_id =''
 var initial_scrolled_to_message = false;
-var scrolled_screen_bottom = false;
 var scroll_speed = 500;
 
 $(document).ready(function(){
@@ -138,17 +137,9 @@ function setup_page_update_interval(){
 				if(data != current_html){
 
 					/**
-					 * If we are close to the bottom of
-					 * the screen, scroll down and show
-					 * the new messages as they load.
+					 * If they are away, 
+					 * beep them!
 					 */
-					if(
-						$(window).scrollTop() + $(window).height()
-							>= $(document).height() - 50
-					){
-						goto_screen_bottom();
-					}
-
 					if(!window_active){
 						beep();
 					}
@@ -157,22 +148,30 @@ function setup_page_update_interval(){
 					 * Update the page with the 
 					 * messages sent back.
 					 */
-					$('#messages').html(data);	
+					$('#messages').html(data);
+
 				}
 
 				if(window.location.hash && !initial_scrolled_to_message){
 					goto_message(window.location.hash);
 					initial_scrolled_to_message = true;
 				}else{
-					if(!window.location.hash){
-						goto_screen_bottom();
-					}
+					goto_screen_bottom_if_close();
 				}
 
 			}
 		});
 	}, php2js.the_interval);
 
+}
+
+function goto_screen_bottom_if_close(){
+	if(
+		$(window).scrollTop() + $(window).height()
+			>= $(document).height() - 50
+	){
+		goto_screen_bottom();
+	}
 }
 
 function goto_message(message_hash){
@@ -221,11 +220,7 @@ $(window).blur(function(){
  * Go to the bottom of the screen.
  */
 function goto_screen_bottom(){
-	if(!scrolled_screen_bottom){
-		$("html, body").animate({ 
-			scrollTop: $(document).height()
-		}, scroll_speed);	
-	}
-
-	scrolled_screen_bottom = true;
+	$(window).scrollTop( 
+		$(document).height() 
+	);
 }
