@@ -82,6 +82,10 @@ if( isset($_GET['action']) ){
  * Init function
  */
 function init(){
+	/**
+	 * Strip nick from url so it 
+	 * can be shared.
+	 */
 	the_nick_url();
 }
 
@@ -139,7 +143,9 @@ function the_hash(){
 			$_GET['hash']
 		);
 	}else{
-		return false;
+		return filter_hash_after_db(
+			false
+		);
 	}
 }
 

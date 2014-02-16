@@ -11,8 +11,8 @@
 		 * Variables that will be accessible to JS
 		 */
 		var php2js = {
-			the_nick: '<?php echo my_nick(); ?>',
-			the_hash: '<?php echo the_hash(); ?>',
+			the_nick: "<?php echo my_nick(); ?>",
+			the_hash: "<?php echo the_hash(); ?>",
 			the_interval: <?php echo the_interval(); ?>
 		};
 	</script>

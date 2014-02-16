@@ -9,6 +9,20 @@ function the_nick_url(){
 		$_SESSION['nick']=my_nick();
 		header( "Location: ?hash=".the_hash() );
 	}
+
+	// !todo 
+	// Make it so the hash and the nick 
+	// do not have bad chars and re-load the page
+	// without the bad chars
+	// 
+	// Consider:
+	// 
+	// they might want "I'm" so we want to be
+	// able to keep the ' but not have it break
+	// JS or PHP quote issues.
+	// 
+	// Maybe clean bad chars
+	// 
 }
 
 ?>

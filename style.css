@@ -18,6 +18,10 @@ body{
 	line-height: 19px;
 }
 
+.title-accent{
+	color: rgb(173, 230, 173);
+}
+
 a{
 	color: #3896C2;
 }
