@@ -8,6 +8,32 @@ include "config.php";
 	$config = objectify_array($config);
 
 /**
+ * Bring in filtering functions
+ * for before_db and after_db
+ */
+include "filters.php";
+
+/**
+ * Formatting
+ */
+include "formatting.php";
+
+/**
+ * Formatting for the URL
+ */
+include "urls.php";
+
+/**
+ * UX
+ */
+include "ux.php";
+
+/**
+ * Ajax handler
+ */
+include "ajax.php";
+
+/**
  * Set the timezone of the app.
  */
 date_default_timezone_set($config->timezone);
@@ -53,113 +79,42 @@ if( isset($_GET['action']) ){
 }
 
 /**
- * Watch for the nick, and if it's in $_GET
- * store it in $_SESSION so the url is shareable.
+ * Init function
  */
 function init(){
-	if( isset($_GET['nick']) ){
-		$_SESSION['nick']=the_nick();
-		header( "Location: ?hash=".the_hash() );
-	}
-}
-
-/**
- * Handle ajax calls.
- */
-function ajax_handler($action){
-
-	global $config;
-
-	/**
-	 * If we were passed a message, save it to the DB
-	 * and send back the updated conversation.
-	 */
-	if($action=='post_message'){
-		
-		/**
-		 * Make sure the message is not empty.
-		 */
-		if($_GET['message'] != ''){
-
-			$record = array(
-				'nick' => $_GET['nick'],
-				'message' => filter_message_before_db(
-					$_GET['message']
-				),
-				'hash' => $_GET['hash'],
-				'time' => time(),
-			);
-
-			DB::insert($config->db_table, $record);
-
-			$record_id = DB::insertId();
-
-			include "hash-table.html.php";
-
-		}
-
-	/**
-	 * Just get the latest messages
-	 * in the conversation. Usually updated per
-	 * an interval from JS.
-	 */
-	}elseif($action=='update_table'){
-		include "hash-table.html.php";
-	}
+	the_nick_url();
 }
 
 /**
  * Pass back the interval with ease.
  */
-function the_interval($how){
+function the_interval(){
 	global $config;
-
-	if($how=='echo'){
-		echo $config->interval;
-	}else{
-		return $config->interval;
-	}
-}
-
-/**
- * Add some classes to an element if the nick
- * is the same as the message being displayed.
- *
- * Allows us to use CSS to make that person's
- * nick highlighted.
- */
-function the_nick_classes($nick){
-	if(the_nick() == $nick){
-		echo " nicksame";
-	}
+	return $config->interval;
 }
 
 /**
  * Pass back the nick with ease.
  */
-function the_nick($how=NULL){
+function my_nick(){
 
 	/**
 	 * If it's stored in $_GET 
 	 * (which should be shortly).
 	 */
 	if( isset( $_GET['nick'] ) ){
-		if($how=='echo'){
-			echo $_GET['nick'];
-		}else{
-			return $_GET['nick'];
-		}
+		return filter_nick_after_db(
+			$_GET['nick']
+		);
 
 	/**
 	 * If it's stored in $_SESSION.
 	 */
 	}else{
 		if( isset( $_SESSION['nick'] ) ){
-			if($how=='echo'){
-				echo $_SESSION['nick'];
-			}else{
-				return $_SESSION['nick'];
-			}
+			return filter_nick_after_db(
+				$_SESSION['nick']
+			);
 		}else{
 			return false;
 		}
@@ -167,52 +122,25 @@ function the_nick($how=NULL){
 }
 
 /**
+ * Pass back the individual message's
+ * nick back with ease
+ */
+function the_message_nick($nick){
+	return filter_nick_after_db($nick);
+}
+
+/**
  * Pass the hash back with ease.
  * It persists in the URL via $_GET
  */
-function the_hash($how=NULL){
+function the_hash(){
 	if( isset($_GET['hash']) ){
-		if($how=='echo'){
-			echo $_GET['hash'];
-		}else{
-			return $_GET['hash'];
-		}
+		return filter_hash_after_db(
+			$_GET['hash']
+		);
 	}else{
 		return false;
 	}
-}
-
-/**
- * Clean messages before they are stored in the DB.
- */
-function filter_message_before_db($text){
-	$text = clean_ascii($text);
-	
-	return $text;
-}
-
-/**
- * Clean message before it is displayed.
- * @return [type] [description]
- */
-function filter_message_after_db($text){
-
-	/**
-	 * Don't show I\'m
-	 */
-	$text = stripslashes($text);
-
-	/**
-	 * Make sure we don't output HTML.
-	 */
-	$text = htmlentities($text);
-
-	/**
-	 * Auto-link messages.
-	 */	
-	$text = auto_link_text($text);
-
-	return $text;
 }
 
 /**
@@ -220,20 +148,6 @@ function filter_message_after_db($text){
  */
 function the_message($text){
 	$text = filter_message_after_db($text);
-	return $text;
-}
-
-/**
- * Auto link hyperlinks in text.
- */
-function auto_link_text($text){
-
-	$text= preg_replace(
-		'/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', 
-		'<a href="\1" target="blank_">\1</a>',
-		$text
-	);
-
 	return $text;
 }
 
@@ -259,70 +173,6 @@ function the_messages($hash){
  */
 function objectify_array($array){
 	return json_decode(json_encode($array));
-}
-
-/**
- * Remove any non-ASCII characters and convert known non-ASCII characters 
- * to their ASCII equivalents, if possible.
- *
- * @param string $string 
- * @return string $string
- * @author Jay Williams <myd3.com>
- * @license MIT License
- * @link http://gist.github.com/119517
- */
-function clean_ascii($string) { 
-  // Replace Single Curly Quotes
-  $search[]  = chr(226).chr(128).chr(152);
-  $replace[] = "'";
-  $search[]  = chr(226).chr(128).chr(153);
-  $replace[] = "'";
- 
-  // Replace Smart Double Curly Quotes
-  $search[]  = chr(226).chr(128).chr(156);
-  $replace[] = '"';
-  $search[]  = chr(226).chr(128).chr(157);
-  $replace[] = '"';
- 
-  // Replace En Dash
-  $search[]  = chr(226).chr(128).chr(147);
-  $replace[] = '--';
- 
-  // Replace Em Dash
-  $search[]  = chr(226).chr(128).chr(148);
-  $replace[] = '---';
- 
-  // Replace Bullet
-  $search[]  = chr(226).chr(128).chr(162);
-  $replace[] = '*';
- 
-  // Replace Middle Dot
-  $search[]  = chr(194).chr(183);
-  $replace[] = '*';
- 
-  // Replace Ellipsis with three consecutive dots
-  $search[]  = chr(226).chr(128).chr(166);
-  $replace[] = '...';
- 
-  // Apply Replacements
-  $string = str_replace($search, $replace, $string);
- 
-  // Remove any non-ASCII Characters
-  $string = preg_replace("/[^\x01-\x7F]/","", $string);
- 
-  return $string; 
-}
-
-function message_classes($message_id){
-	if( isset($_GET['highlight_id']) ){
-
-		$highlight_id = str_replace("#",'',$_GET['highlight_id']);
-
-		if($highlight_id == $message_id){
-			echo "highlight";
-		}
-
-	}
 }
 
 ?>

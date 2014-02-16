@@ -1,5 +1,13 @@
 <h1 id="hash-title">
-	<a href="?nick=&hash=<?php the_hash('echo'); ?>"><?php the_nick('echo'); ?></a>@<a href="?nick=<?php the_nick('echo'); ?>&hash=">#<?php the_hash('echo'); ?></a>
+	<span title="<?php echo my_nick(); ?>@#<?php echo the_hash('echo'); ?>"> 
+		<a href="?nick=&hash=<?php echo the_hash(); ?>">
+			<?php echo shorten_nick( my_nick() ); ?>
+		</a>
+		@
+		<a href="?nick=<?php echo my_nick(); ?>&hash=">
+			#<?php echo shorten_hash( the_hash('echo') ); ?>
+		</a>
+	</span>
 </h1>
 
 <div id="messages">

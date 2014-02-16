@@ -5,7 +5,7 @@
 	<table id="get-has-form">
 		<tr>
 			<td class="label">Nick</td>
-			<td><input type="text" name="nick" value="<?php the_nick('echo'); ?>"></td>
+			<td><input type="text" name="nick" value="<?php my_nick('echo'); ?>"></td>
 		</tr>
 		<tr>
 			<td class="label">Room</td>

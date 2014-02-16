@@ -11,9 +11,9 @@
 		 * Variables that will be accessible to JS
 		 */
 		var php2js = {
-			the_nick: '<?php the_nick('echo'); ?>',
-			the_hash: '<?php the_hash('echo'); ?>',
-			the_interval: <?php the_interval('echo'); ?>
+			the_nick: '<?php echo my_nick(); ?>',
+			the_hash: '<?php echo the_hash(); ?>',
+			the_interval: <?php echo the_interval(); ?>
 		};
 	</script>
 	<script src="hash.js"></script>
@@ -26,7 +26,7 @@
 		 * load the hash page.
 		 */
 		if(
-			the_nick()
+			my_nick()
 			&& the_hash()
 		){
 			include "in-hash.html.php";
