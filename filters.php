@@ -15,6 +15,10 @@ function filter_nick_before_db($hash){
 	return $hash;
 }
 
+/**
+ * Sanitize the nick after it's value is 
+ * brought in from DB
+ */
 function filter_nick_after_db($nick){
 	return $nick;
 }
@@ -22,10 +26,6 @@ function filter_nick_after_db($nick){
 /**
  * Hash ===============================
  */
-
-function filter_hash_after_db($hash){
-	return $hash;
-}
 
 /**
  * Sanitize nick before it's put in the database.
@@ -40,6 +40,14 @@ function filter_hash_before_db($nick){
 }
 
 /**
+ * Sanitize the hash after
+ * it's been pulled from DB
+ */
+function filter_hash_after_db($hash){
+	return $hash;
+}
+
+/**
  * Messages ===========================
  */
 
@@ -47,7 +55,14 @@ function filter_hash_before_db($nick){
  * Clean messages before they are stored in the DB.
  */
 function filter_message_before_db($text){
+	/**
+	 * Clean out any crazy special characters
+	 * because they're input into the DB
+	 * sometimes doesn't match with the output
+	 * in HTML causing wild notifications.
+	 */
 	$text = clean_ascii($text);
+
 	return $text;
 }
 
@@ -74,6 +89,10 @@ function filter_message_after_db($text){
 
 	return $text;
 }
+
+/**
+ * Cleansing functions ======================
+ */
 
 /**
  * Remove any non-ASCII characters and convert known non-ASCII characters 
