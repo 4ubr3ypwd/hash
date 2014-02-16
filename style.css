@@ -67,7 +67,7 @@ a{
 	border-bottom-color: rgb(96, 179, 96);
 }
 
-#messages-table .message-message{
+#messages-table .message-message a{
 	word-break: break-all;
 }
 
