@@ -1,94 +1,68 @@
 <?php
 
 /**
- * Nick ==========================
+ * Filter the nick before it's stored in the DB.
  */
+function escaped_nick($nick){
 
 	/**
-	 * Sanitize hash before it's put in the database.
+	 * Keep special chars out of hashes.
 	 */
-	function filter_nick_before_db($hash){
-		/**
-		 * Keep special chars out of hashes.
-		 */
-		$hash = clean_ascii($hash);
-		return $hash;
-	}
+	$nick = clean_ascii($nick);
+	$nick = mysql_real_escape_string($nick);
 
-	/**
-	 * Sanitize the nick after it's value is 
-	 * brought in from DB
-	 */
-	function filter_nick_after_db($nick){
-		return $nick;
-	}
+	return $nick;
+}
 
 /**
- * Hash ===============================
+ * Filter the hash before it's stored
+ * in the DB
  */
+function escaped_hash($hash){
+	$hash = clean_ascii($hash);
+	$hash = mysql_real_escape_string($hash);
 
-	/**
-	 * Sanitize nick before it's put in the database.
-	 */
-	function filter_hash_before_db($nick){
-		/**
-		 * Keep special chars out of nicks.
-		 */
-		$nick = clean_ascii($nick);
-
-		return $nick;
-	}
-
-	/**
-	 * Sanitize the hash after
-	 * it's been pulled from DB
-	 */
-	function filter_hash_after_db($hash){
-		return $hash;
-	}
+	return $hash;
+}
 
 /**
- * Messages ===========================
+ * Clean messages before they are stored in the DB.
  */
+function filter_message_before_db($text){
+	/**
+	 * Clean out any crazy special characters
+	 * because they're input into the DB
+	 * sometimes doesn't match with the output
+	 * in HTML causing wild notifications.
+	 */
+	$text = clean_ascii($text);
+
+	return $text;
+}
+
+/**
+ * Clean message before it is displayed.
+ * @return [type] [description]
+ */
+function filter_message_after_db($text){
 
 	/**
-	 * Clean messages before they are stored in the DB.
+	 * Don't show I\'m
 	 */
-	function filter_message_before_db($text){
-		/**
-		 * Clean out any crazy special characters
-		 * because they're input into the DB
-		 * sometimes doesn't match with the output
-		 * in HTML causing wild notifications.
-		 */
-		$text = clean_ascii($text);
-
-		return $text;
-	}
+	$text = stripslashes($text);
 
 	/**
-	 * Clean message before it is displayed.
-	 * @return [type] [description]
+	 * Make sure we don't output HTML.
 	 */
-	function filter_message_after_db($text){
+	$text = htmlentities($text);
 
-		/**
-		 * Don't show I\'m
-		 */
-		$text = stripslashes($text);
+	/**
+	 * Auto-link messages.
+	 */	
+	$text = auto_link_text($text);
 
-		/**
-		 * Make sure we don't output HTML.
-		 */
-		$text = htmlentities($text);
-
-		/**
-		 * Auto-link messages.
-		 */	
-		$text = auto_link_text($text);
-
-		return $text;
-	}
+	return $text;
+}
 
 /**
  * Cleansing functions ======================

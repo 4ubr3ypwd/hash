@@ -35,4 +35,12 @@ function auto_link_text($text){
 	return $text;
 }
 
+function e_html($text){
+	echo html($text);
+}
+
+function html($text){
+	return htmlentities($text);
+}
+
 ?>

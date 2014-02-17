@@ -107,7 +107,7 @@ function my_nick(){
 	 * (which should be shortly).
 	 */
 	if( isset( $_GET['nick'] ) ){
-		return filter_nick_after_db(
+		return (
 			$_GET['nick']
 		);
 
@@ -116,7 +116,7 @@ function my_nick(){
 	 */
 	}else{
 		if( isset( $_SESSION['nick'] ) ){
-			return filter_nick_after_db(
+			return (
 				$_SESSION['nick']
 			);
 		}else{
@@ -130,7 +130,7 @@ function my_nick(){
  * nick back with ease
  */
 function the_message_nick($nick){
-	return filter_nick_after_db($nick);
+	return ($nick);
 }
 
 /**
@@ -139,13 +139,11 @@ function the_message_nick($nick){
  */
 function the_hash(){
 	if( isset($_GET['hash']) ){
-		return filter_hash_after_db(
+		return (
 			$_GET['hash']
 		);
 	}else{
-		return filter_hash_after_db(
-			false
-		);
+		return false;
 	}
 }
 
@@ -164,7 +162,8 @@ function the_messages($hash){
 	global $config;
 
 	$messages = DB::query(
-		"SELECT * FROM $config->db_table WHERE hash=%s", the_hash() 
+		"SELECT * FROM $config->db_table WHERE hash=%s", 
+		the_hash()
 	);
 
 	if( !is_array($messages) ){

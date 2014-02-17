@@ -15,8 +15,8 @@ $(document).ready(function(){
 	 * which loads up the in-hash page.
 	 */
 	if(
-			php2js.the_hash==''
-		|| php2js.the_nick==''
+			php2js.escaped_hash == ''
+		|| php2js.escaped_nick == ''
 	) return false;
 	
 	if( $('#message') ){
@@ -30,8 +30,8 @@ $(document).ready(function(){
 			if(e.which == 13) {
 				send_message(
 					$('#message').val(),
-					php2js.the_nick,
-					php2js.the_hash
+					php2js.escaped_nick,
+					php2js.escaped_hash
 				);
 			}
 		});
@@ -47,7 +47,7 @@ $(document).ready(function(){
  * Send a request to post a message to the database
  * and update the page when done.
  */
-function send_message(message, nick, hash){
+function send_message(message, escaped_nick, escaped_hash){
 
 	/**
 	 * Make sure we don't send an 
@@ -66,8 +66,8 @@ function send_message(message, nick, hash){
 		data: {
 			action: 'post_message',
 			message: message,
-			nick: nick,
-			hash: hash,
+			escaped_nick: escaped_nick,
+			escaped_hash: escaped_hash,
 			highlight_id: window.location.hash
 		},
 		success: function(
@@ -118,8 +118,8 @@ function setup_page_update_interval(){
 			method: 'get',
 			data: {
 				action: 'update_table',
-				hash: php2js.the_hash,
-				nick: php2js.the_nick,
+				hash: php2js.escaped_hash,
+				nick: php2js.escaped_nick,
 				highlight_id: window.location.hash
 			},
 			success: function(

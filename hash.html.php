@@ -5,17 +5,8 @@
 	<title>Hash</title>
 	<link rel="icon" type="image/png" href="ico.png" />
 	<link rel="apple-touch-icon" type="image/png" href="ico.png">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script>
-		/**
-		 * Variables that will be accessible to JS
-		 */
-		var php2js = {
-			the_nick: "<?php echo my_nick(); ?>",
-			the_hash: "<?php echo the_hash(); ?>",
-			the_interval: <?php echo the_interval(); ?>
-		};
-	</script>
+	<script src="jquery-1.11.0.min.js"></script>
+	<?php php2js(); ?>
 	<script src="hash.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>

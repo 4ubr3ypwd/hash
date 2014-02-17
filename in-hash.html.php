@@ -1,11 +1,15 @@
 <h1 id="hash-title">
-	<span title="<?php echo my_nick(); ?>@#<?php echo the_hash('echo'); ?>"> 
-		<a href="?nick=&hash=<?php echo the_hash(); ?>"><?php
-			?><?php echo shorten_nick( my_nick() ); ?><?php
+	<span title="<?php e_html( my_nick() ); ?>@#<?php e_html( the_hash() ); ?>"> 
+		<a href="?nick=&hash=<?php e_html( the_hash() ); ?>"><?php
+			?><?php 
+				e_html( shorten_nick( my_nick() ) );
+			?><?php
 		?></a><?php
 		?><span class="title-accent">@</span><?php
-		?><a href="?nick=<?php echo my_nick(); ?>&hash="><?php
-			?><span class="title-accent">#</span><?php echo shorten_hash( the_hash('echo') ); ?><?php
+		?><a href="?nick=<?php e_html( my_nick() ); ?>&hash="><?php
+			?><span class="title-accent">#</span><?php 
+				e_html( shorten_hash( the_hash() ) );
+			?><?php
 		?></a>
 	</span>
 </h1>

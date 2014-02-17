@@ -1,5 +1,20 @@
 <?php
 
+function php2js(){
+	?>
+	<script>
+		/**
+		 * Variables that will be accessible to JS
+		 */
+		var php2js = {
+			escaped_nick: "<?php echo escaped_nick( my_nick() ); ?>",
+			escaped_hash: "<?php echo escaped_hash( the_hash() ); ?>",
+			the_interval: <?php echo the_interval(); ?>
+		};
+	</script>
+	<?php
+}
+
 /**
  * Handle ajax calls.
  */
@@ -19,15 +34,30 @@ function ajax_handler($action){
 		if($_GET['message'] != ''){
 
 			$record = array(
-				'nick' => filter_nick_before_db(
-					$_GET['nick']
+				
+				/**
+				 * Should already be escaped via
+				 * php2js
+				 */
+				'nick' => (
+					$_GET['escaped_nick']
 				),
+				
 				'message' => filter_message_before_db(
 					$_GET['message']
 				),
-				'hash' => filter_hash_before_db(
-					$_GET['hash']
+
+				/**
+				 * Should already be escaped via
+				 * php2js
+				 */
+				'hash' => (
+					$_GET['escaped_hash']
 				),
+
+				/**
+				 * Time of post.
+				 */
 				'time' => time(),
 			);
 
