@@ -6,9 +6,17 @@
 function escaped_nick($nick){
 
 	/**
-	 * Keep special chars out of hashes.
+	 * Take out any non utf-8
+	 * crazy chars
 	 */
 	$nick = clean_ascii($nick);
+
+	/**
+	 * Escape values so that when
+	 * they are injected into JS
+	 * they do not cause escaping 
+	 * errors.
+	 */
 	$nick = mysql_real_escape_string($nick);
 
 	return $nick;
@@ -19,7 +27,19 @@ function escaped_nick($nick){
  * in the DB
  */
 function escaped_hash($hash){
+
+	/**
+	 * Take out any non utf-8
+	 * crazy chars
+	 */
 	$hash = clean_ascii($hash);
+
+	/**
+	 * Escape values so that when
+	 * they are injected into JS
+	 * they do not cause escaping 
+	 * errors.
+	 */
 	$hash = mysql_real_escape_string($hash);
 
 	return $hash;
