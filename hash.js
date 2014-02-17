@@ -148,7 +148,7 @@ function setup_page_update_interval(){
 					 * beep them!
 					 */
 					if(!window_active){
-						//beep();
+						beep();
 					}
 
 					/**
