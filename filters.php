@@ -17,7 +17,7 @@ function escaped_nick($nick){
 	 * they do not cause escaping 
 	 * errors.
 	 */
-	$nick = mysql_real_escape_string($nick);
+	$nick = addslashes($nick);
 
 	return $nick;
 }
@@ -40,7 +40,7 @@ function escaped_hash($hash){
 	 * they do not cause escaping 
 	 * errors.
 	 */
-	$hash = mysql_real_escape_string($hash);
+	$hash = addslashes($hash);
 
 	return $hash;
 }

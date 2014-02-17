@@ -40,7 +40,7 @@ function ajax_handler($action){
 				 * php2js
 				 */
 				'nick' => (
-					$_GET['escaped_nick']
+					$_GET['nick']
 				),
 				
 				'message' => filter_message_before_db(
@@ -52,7 +52,7 @@ function ajax_handler($action){
 				 * php2js
 				 */
 				'hash' => (
-					$_GET['escaped_hash']
+					$_GET['hash']
 				),
 
 				/**

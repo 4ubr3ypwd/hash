@@ -66,8 +66,8 @@ function send_message(message, escaped_nick, escaped_hash){
 		data: {
 			action: 'post_message',
 			message: message,
-			escaped_nick: escaped_nick,
-			escaped_hash: escaped_hash,
+			nick: escaped_nick,
+			hash: escaped_hash,
 			highlight_id: window.location.hash
 		},
 		success: function(
@@ -75,6 +75,9 @@ function send_message(message, escaped_nick, escaped_hash){
 			textStatus, 
 			jqXHR
 		){
+
+			console.log(data);
+
 			/**
 			 * Set our message box back to nothing so 
 			 * we can type another.
@@ -145,7 +148,7 @@ function setup_page_update_interval(){
 					 * beep them!
 					 */
 					if(!window_active){
-						beep();
+						//beep();
 					}
 
 					/**
@@ -154,6 +157,7 @@ function setup_page_update_interval(){
 					 */
 					$('#messages').html(data);
 
+					goto_screen_bottom_if_close();
 				}
 
 				if(window.location.hash && !initial_scrolled_to_message){

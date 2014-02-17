@@ -163,7 +163,7 @@ function the_messages($hash){
 
 	$messages = DB::query(
 		"SELECT * FROM $config->db_table WHERE hash=%s", 
-		the_hash()
+		$hash
 	);
 
 	if( !is_array($messages) ){
