@@ -76,8 +76,6 @@ function send_message(message, escaped_nick, escaped_hash){
 			jqXHR
 		){
 
-			console.log(data);
-
 			/**
 			 * Set our message box back to nothing so 
 			 * we can type another.
